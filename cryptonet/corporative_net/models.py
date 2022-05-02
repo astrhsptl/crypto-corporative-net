@@ -30,13 +30,16 @@ class Orders(models.Model):
     executor_id = models.ForeignKey(
         'Workers', on_delete=models.PROTECT, verbose_name='executor_id', blank=True
     )
+    client_id = models.ForeignKey(
+        'Clients', on_delete=models.PROTECT, verbose_name='client_id', blank=True
+    )
     client_sum = models.IntegerField(default=0, verbose_name='client_sum')
     status = models.CharField(
         max_length=64,
         choices=STATUS,
         default='not ready',
     )
-    create_date = models.DateField(auto_created=True)
+    create_date = models.DateField(auto_now_add=True)
 
     def get_absolute_url(self):
         return reverse_lazy('orders', kwargs={'id': self.pk})
@@ -55,9 +58,6 @@ class Workers(models.Model):
     name = models.CharField(max_length=255)
     lastname = models.CharField(max_length=255)
     phone = models.CharField(max_length=64)
-    active_order = models.ForeignKey(
-        Orders, on_delete=models.PROTECT, verbose_name='active_order', blank=True
-    )
 
     def get_absolute_url(self):
         return reverse_lazy('workers', kwargs={'id': self.pk})
@@ -70,9 +70,6 @@ class Clients(models.Model):
     lastname = models.CharField(max_length=255)
     phone = models.CharField(max_length=64)
     email = models.EmailField()
-    order_id = models.ForeignKey(
-        Orders, on_delete=models.PROTECT, verbose_name='order_id', blank=True
-    )
 
     def get_absolute_url(self):
         return reverse_lazy('clients', kwargs={'id': self.pk})

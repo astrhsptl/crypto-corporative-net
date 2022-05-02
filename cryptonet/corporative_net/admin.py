@@ -38,32 +38,32 @@ class PostsAdmin(admin.ModelAdmin):
 
 class OrdersAdmin(admin.ModelAdmin):
     list_display = (
-        'id', 'title', 'discription', 'executor_id', 'client_sum', 'status', 'create_date')
+        'id', 'title', 'discription', 'executor_id', 'client_id', 'client_sum', 'status', 'create_date')
     list_display_links = ('id', 'title',)
-    search_fields = ('id', 'title',)
+    search_fields = ('id', 'title', 'client_id')
     list_filter = ('id',)
     fields = (
-        'id', 'title', 'discription', 'executor_id', 'client_sum', 'status', 'create_date')
+        'id', 'title', 'discription', 'executor_id', 'client_id', 'client_sum', 'status', 'create_date')
     readonly_fields = ('id', 'create_date',)
 
 class WorkersAdmin(admin.ModelAdmin):
     list_display = (
-        'id', 'post_id', 'name', 'lastname', 'phone', 'active_order')
+        'id', 'post_id', 'name', 'lastname', 'phone', )
     list_display_links = ('id', 'name',)
     search_fields = ('id', 'title',)
     list_filter = ('id',)
     fields = (
-        'id', 'post_id', 'name', 'lastname', 'phone', 'active_order')
+        'id', 'post_id', 'name', 'lastname', 'phone', )
     readonly_fields = ('id',)
 
 
 class ClientsAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'lastname', 'phone', 'email', 'order_id')
+    list_display = ('id', 'name', 'lastname', 'phone', 'email',)
     list_display_links = ('id', 'name',)
-    search_fields = ('id', 'name', 'order_id')
-    list_filter = ('id', 'order_id')
+    search_fields = ('id', 'name', )
+    list_filter = ('id', )
     fields = (
-        'id', 'name', 'lastname', 'phone', 'email', 'order_id')
+        'id', 'name', 'lastname', 'phone', 'email', )
     readonly_fields = ('id',) 
 
 admin.site.register(Posts, PostsAdmin)
