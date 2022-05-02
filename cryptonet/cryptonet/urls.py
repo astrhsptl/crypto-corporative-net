@@ -16,7 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from corporative_net.views import TestAPIView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('corporative_net.urls'))
+    path('api/test/', TestAPIView.as_view())
 ]
