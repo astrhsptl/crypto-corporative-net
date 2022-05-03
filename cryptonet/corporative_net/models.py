@@ -66,10 +66,10 @@ class Workers(models.Model):
         return self.name
 
 class Clients(models.Model):
-    name = models.CharField(max_length=255)
-    lastname = models.CharField(max_length=255)
-    phone = models.CharField(max_length=64)
-    email = models.EmailField()
+    name = models.CharField(max_length=255, verbose_name='name')
+    lastname = models.CharField(max_length=255, verbose_name='lastname')
+    phone = models.CharField(max_length=64, verbose_name='phone')
+    email = models.EmailField(verbose_name='email')
 
     def get_absolute_url(self):
         return reverse_lazy('clients', kwargs={'id': self.pk})
