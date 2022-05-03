@@ -1,10 +1,17 @@
 from django.http import HttpResponse
+from rest_framework.response import Response
 from rest_framework.generics import ListAPIView, RetrieveUpdateAPIView 
+from rest_framework.viewsets import ModelViewSet
 
 from .models import Orders, Clients, Workers, Posts
 from .serializer import OrdersSerializer, ClientsSerializer, PostsSerializer, WorkersSerializer
-
+from .serializer import TestSerializer
 # Create your views here.
+
+class TestViewSet(ModelViewSet):
+    queryset = Orders.objects.raw(
+    "select o.id, o.title, o.discription, cnc.name, o.client_sum, o.status from orders as o join corporative_net_clients as cnc on cnc.id=o.executor_id_id;")
+    serializer_class = TestSerializer
 
 #list classes
 class OrdersListAPIView(ListAPIView):
@@ -49,3 +56,7 @@ class ClientsRetrieveAPIView(RetrieveUpdateAPIView):
 class PostsRetrieveAPIView(RetrieveUpdateAPIView):
     queryset = Posts.objects.all()
     serializer_class = PostsSerializer
+
+def first(request):
+    print(f'{Orders.objects.raw("select o.*, cnc.name from orders as o join corporative_net_clients as cnc on cnc.id=o.id;")}')
+    return HttpResponse(f'<h1>{Clients.objects.all()}</h1>')
