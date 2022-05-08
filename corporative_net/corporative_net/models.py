@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import CharField
 from django.urls import reverse_lazy
 
 # Create your models here.
@@ -76,3 +77,18 @@ class Clients(models.Model):
 
     def __str__(self):
         return self.name
+
+class Prices(models.Model):
+    crypt_one = models.CharField(max_length=255, verbose_name='crypt_one')
+    price_one = models.IntegerField(default=0)
+    crypt_two = models.CharField(max_length=255, verbose_name='crypt_two')
+    price_two = models.IntegerField(default=0)
+
+    class Meta:
+        db_table = 'prices'
+
+    def get_absolute_url(self):
+        return reverse_lazy('prises', kwargs={'id': self.pk})
+
+    def __str__(self):
+        return self.crypt_one

@@ -1,10 +1,22 @@
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.permissions import IsAdminUser
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
-from .models import Orders, Clients, Workers, Posts
+from .models import Orders, Clients, Workers, Posts, Prices
 from .serializer import OrdersSerializer, ClientsSerializer, PostsSerializer, WorkersSerializer
-from .serializer import ListOrdersSerializer, ListWorkersSerilizer
+from .serializer import ListOrdersSerializer, ListWorkersSerilizer, PricesSerializer
+
+from .buisneslogic.parser import get_and_write_all_prices
 # Create your views here.
+
+class PricesAPIView(APIView):
+    def get(self, request):
+        print(get_and_write_all_prices())
+        lst = Prices.objects.raw(
+        'select * from prices order by id desc limit 1;'
+        )
+        return Response({'prices': PricesSerializer(lst, many=True).data})
 
 #list classes
 class OrdersListAPIView(ListAPIView):

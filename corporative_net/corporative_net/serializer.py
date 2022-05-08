@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Orders, Clients, Posts, Workers
+from .models import Orders, Clients, Posts, Workers, Prices
 
 class OrdersSerializer(serializers.ModelSerializer):
     class Meta:
@@ -36,3 +36,9 @@ class ListWorkersSerilizer(serializers.Serializer):
     lastname = serializers.CharField(max_length=511)
     title = serializers.CharField(max_length=255)
     phone = serializers.CharField(max_length=255,)
+
+class PricesSerializer(serializers.Serializer):
+    crypt_one = serializers.CharField(max_length=255)
+    price_one = serializers.IntegerField()
+    crypt_two = serializers.CharField(max_length=255)
+    price_two = serializers.IntegerField()
