@@ -1,5 +1,4 @@
 from django.db import models
-from django.forms import CharField
 from django.urls import reverse_lazy
 
 # Create your models here.
